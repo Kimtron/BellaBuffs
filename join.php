@@ -69,8 +69,12 @@ if (isset($_POST['submit'])) {
 		$error_msg .= "That name is not valid. Your name must contain letters only, and must be less than 15 characters. \r\n";
 	if ($clean['dispemail'] != "yes" && $clean['dispemail'] != "no")
 		$error_msg .= "You didn't choose whether or not you'd like to show your e-mail address on the member list. \r\n";
+	
+	//favourite addition section
+	
 	if ($clean['fave'] != "" && (!preg_match("/^[a-zA-Z0-9-'\s]*$/", $clean['fave']) || strlen($clean['fave']) > 20))
 		$error_msg .= "Your chosen \"favourite\" is not valid. It must contain letters and numbers only, and must be less than 20 characters. \r\n";
+	
 	if (!preg_match('/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])(([a-z0-9-])*([a-z0-9]))+' . '(\.([a-z0-9])([-a-z0-9_-])?([a-z0-9])+)+$/i', strtolower($clean['email'])))
 		$error_msg .= "The email address you have used is not valid. \r\n";
 	if (!empty($clean['url']) && !preg_match('/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?\/?/i', $clean['url']))
@@ -183,7 +187,10 @@ if (!isset($_POST['submit']) || $show_form == true) {
 	<input type="radio" id="dispemailno" name="dispemail" value="no" /> No<br />
 	<label>Website</label><br /> <input type="text" id="url" name="url"  value="<?php get_data("url"); ?>" /> <br />
 	<label>Country *</label><br /> <select name="country" id="country"><option value="null">Please select a country:</option><?php get_countries($country); ?></select> <br />
-<?php
+
+	<!--Favourite Addition Section-->
+	
+	<?php
 	if (isset($favefield) && $favefield == "yes") {
 ?>
 	<label><?php echo $favetext; ?></label><br /> <input type="text" id="fave" name="fave"  value="<?php get_data("fave"); ?>" /> <br />
